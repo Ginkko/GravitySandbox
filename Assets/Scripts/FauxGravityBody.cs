@@ -8,17 +8,20 @@ public class FauxGravityBody : MonoBehaviour {
 	private Transform myTransform;
     private Rigidbody myRigidBody;
 
+    public float thrust;
+
 	void Start () {
         myRigidBody = GetComponent<Rigidbody>();
 		GetComponent<Rigidbody>().useGravity = false;
 		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
 
 		myTransform = transform;
+        myRigidBody.AddForce(Vector3.forward * 50, ForceMode.Impulse);
 	}
 
 	void FixedUpdate () {
 
-        myRigidBody.AddForce(transform.forward * 5);
+        myRigidBody.AddForce(transform.forward * thrust);
 
 		if (attractor){
 			attractor.Attract(myTransform);
